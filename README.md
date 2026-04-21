@@ -42,7 +42,8 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - Effetto parallax leggero sulle immagini.
 - Parallax disattivato su mobile stretto per mantenere lo scroll fluido.
 - Effetto di comparsa/scomparsa delle foto durante lo scroll.
-- Rifiniture mobile: barra azioni rapida con icone, gallerie a scorrimento e micro-interazioni menu.
+- Rifiniture mobile: dock azioni rapido con pulsanti iconici, gallerie verticali senza scroll orizzontale e micro-interazioni menu.
+- Pagina prenotazione con header scuro dedicato: menu, email e telefono restano bianchi sopra il booking engine Amenitiz.
 - Metadata SEO completi, canonical, social preview e dati strutturati con enfasi su gruppi e intera location.
 - Booking engine Amenitiz incorporato in `prenotazione.html`.
 - Fallback link per aprire Amenitiz in nuova scheda.
@@ -79,10 +80,19 @@ GitHub Pages ricostruira automaticamente il sito dopo il push.
 - Non eliminare `prenotazione.html`: e la pagina usata dai pulsanti "prenota online".
 - `prenota.html` e mantenuta come alias/copia di sicurezza.
 - `prenota.html` ha canonical verso `prenotazione.html` ed e impostata `noindex` per evitare duplicati SEO.
+- Aggiornare sempre questo `README.md` quando cambia struttura, asset, UX, SEO, pubblicazione o una regola operativa del progetto.
+- Dopo modifiche a CSS, JavaScript, video o immagini hero, aggiornare la query anti-cache nei riferimenti HTML, per esempio `?v=YYYYMMDD-descrizione`.
 - Canonical, robots e sitemap sono allineati all'URL GitHub Pages. Se viene collegato un dominio custom, aggiornare URL assoluti in HTML, `robots.txt` e `sitemap.xml`.
 - Le immagini del vecchio sito non selezionate sono escluse dal repository tramite `.gitignore`.
 - I video originali `assets/video/italyke-sponsor-hero.mp4` e `assets/video/italyke-sponsor-mobile.mp4` restano come sorgenti; il sito carica le versioni web `*-web.mp4`.
 - Per cambiare l'URL Amenitiz, aggiornare iframe e link fallback in `prenotazione.html` e, se necessario, anche in `prenota.html`.
+
+## Ultimo stato pubblicato
+
+- Commit pubblicato: `3181cdf Rifinisci booking e gallerie mobile`.
+- Cache busting attivo: `v=20260421-booking-gallery`.
+- Mobile: le sezioni con tre immagini/card sono verticali, senza scorrimento laterale.
+- Booking Amenitiz: header scuro dedicato con controlli bianchi.
 
 ## Verifiche recenti
 
