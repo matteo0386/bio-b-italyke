@@ -26,7 +26,7 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - `assets/fonts/`: font locali in stile Casa Angelina.
 - `assets/img/logo.png`: logo usato nel menu e nel footer.
 - `assets/img/sito-pubblicato/Immagini def/`: immagini selezionate usate nelle pagine.
-- `assets/img/optimized/`: versioni WebP leggere delle immagini effettivamente caricate dal sito.
+- `assets/img/optimized/`: versioni WebP leggere e responsive delle immagini effettivamente caricate dal sito (`720w`, `1100w`, `1400w`).
 - `assets/img/seo/`: immagini Open Graph 1200x630 per anteprime social e SEO.
 - `assets/img/instagram/`: anteprime statiche degli ultimi post Instagram.
 - `assets/video/`: sorgenti video hero, versioni web leggere e poster homepage.
@@ -37,7 +37,7 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - Footer con logo, contatti, link navigazione e pulsante "prenota online" in tutte le pagine.
 - Homepage con video hero, testi ad alto contrasto e CTA verso prenotazione.
 - Video hero caricato in modo differito dopo il primo caricamento della pagina.
-- Immagini delle pagine collegate a versioni WebP leggere con lazy loading dove possibile.
+- Immagini delle pagine collegate a versioni WebP responsive con `srcset`, `sizes` e lazy loading dove possibile.
 - Slider immagini in stile Casa Angelina.
 - Effetto parallax leggero sulle immagini.
 - Parallax disattivato su mobile stretto per mantenere lo scroll fluido.
@@ -89,8 +89,9 @@ GitHub Pages ricostruira automaticamente il sito dopo il push.
 
 ## Ultimo stato pubblicato
 
-- Commit pubblicato: `3181cdf Rifinisci booking e gallerie mobile`.
-- Cache busting attivo: `v=20260421-booking-gallery`.
+- Ultimo intervento pubblicato: ottimizzazione responsive immagini e cache busting dedicato.
+- Cache busting attivo: `v=20260421-img-srcset`.
+- Immagini: base WebP ridotte a circa 4.7 MB totali e varianti responsive `720w`/`1100w`/`1400w` collegate agli HTML.
 - Mobile: le sezioni con tre immagini/card sono verticali, senza scorrimento laterale.
 - Booking Amenitiz: header scuro dedicato con controlli bianchi.
 
