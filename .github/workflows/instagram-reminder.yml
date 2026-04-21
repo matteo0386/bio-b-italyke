@@ -1,0 +1,93 @@
+name: Promemoria Instagram
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  remind:
+    name: Crea promemoria settimanale
+    runs-on: ubuntu-latest
+    steps:
+      - name: Apri o aggiorna issue promemoria
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const title = "Aggiornare anteprime Instagram homepage";
+            const labelName = "manutenzione-instagram";
+            const labelColor = "8c6a4f";
+            const now = new Date();
+            const date = new Intl.DateTimeFormat("it-IT", {
+              timeZone: "Europe/Rome",
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric"
+            }).format(now);
+
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name: labelName });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.issues.createLabel({
+                owner,
+                repo,
+                name: labelName,
+                color: labelColor,
+                description: "Promemoria per aggiornare le anteprime Instagram statiche"
+              });
+            }
+
+            const { data: openIssues } = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: "open",
+              labels: labelName,
+              per_page: 100
+            });
+
+            const existing = openIssues.find((issue) => {
+              return !issue.pull_request && issue.title === title;
+            });
+
+            const body = [
+              `Promemoria settimanale del ${date}.`,
+              "",
+              "Aggiornare la sezione Instagram della homepage con gli ultimi 6 post/reel di @bbitalyke.",
+              "",
+              "Checklist:",
+              "- [ ] Selezionare gli ultimi 6 contenuti Instagram",
+              "- [ ] Aggiornare link, date e testi alternativi in `index.html`",
+              "- [ ] Sostituire o comprimere le anteprime in `assets/img/instagram/`",
+              "- [ ] Aggiornare `README.md`",
+              "- [ ] Eseguire i controlli locali",
+              "- [ ] Pubblicare su GitHub Pages",
+              "",
+              "Nota: le anteprime restano statiche per mantenere la homepage leggera e senza script Instagram esterni."
+            ].join("\n");
+
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: existing.number,
+                body
+              });
+              core.info(`Issue gia aperta: #${existing.number}. Aggiunto commento promemoria.`);
+              return;
+            }
+
+            const { data: issue } = await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+              labels: [labelName]
+            });
+            core.info(`Creata issue promemoria: #${issue.number}.`);

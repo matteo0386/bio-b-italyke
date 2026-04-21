@@ -18,6 +18,7 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - `contatti.html`: recapiti e form che apre WhatsApp con messaggio precompilato.
 - `prenotazione.html`: pagina dedicata al booking engine Amenitiz in iframe.
 - `prenota.html`: copia mantenuta per compatibilita con eventuali link precedenti.
+- `.github/workflows/instagram-reminder.yml`: GitHub Action che crea il promemoria settimanale per aggiornare le anteprime Instagram statiche.
 
 ## Asset principali
 
@@ -49,6 +50,7 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - Fallback link per aprire Amenitiz in nuova scheda.
 - Form contatti che apre WhatsApp con dati del modulo gia compilati.
 - Anteprima Instagram statica in homepage.
+- Promemoria GitHub Issues settimanale per aggiornare manualmente le anteprime Instagram senza API esterne.
 - Layout responsive mobile-first.
 
 ## Pubblicazione
@@ -75,12 +77,33 @@ git push
 
 GitHub Pages ricostruira automaticamente il sito dopo il push.
 
+## Manutenzione Instagram
+
+Le anteprime Instagram in homepage sono statiche per mantenere il sito leggero e non caricare widget o script esterni.
+
+La GitHub Action `Promemoria Instagram` gira ogni lunedi alle `08:00 UTC` e puo essere avviata anche manualmente da GitHub Actions. Se non esiste una issue aperta, crea `Aggiornare anteprime Instagram homepage`; se la issue e gia aperta, aggiunge un commento promemoria invece di duplicarla.
+
+Routine consigliata quando arriva il promemoria:
+
+```bash
+# aggiornare immagini e riferimenti
+node --check assets/js/main.js
+git diff --check
+git status
+git add -A
+git commit -m "Aggiorna anteprime Instagram"
+git push
+```
+
+Dopo la pubblicazione, chiudere la issue del promemoria.
+
 ## Note operative
 
 - Non eliminare `prenotazione.html`: e la pagina usata dai pulsanti "prenota online".
 - `prenota.html` e mantenuta come alias/copia di sicurezza.
 - `prenota.html` ha canonical verso `prenotazione.html` ed e impostata `noindex` per evitare duplicati SEO.
 - Aggiornare sempre questo `README.md` quando cambia struttura, asset, UX, SEO, pubblicazione o una regola operativa del progetto.
+- Le anteprime Instagram sono aggiornate manualmente; non usare widget Instagram in homepage se appesantiscono il caricamento.
 - Dopo modifiche a CSS, JavaScript, video o immagini hero, aggiornare la query anti-cache nei riferimenti HTML, per esempio `?v=YYYYMMDD-descrizione`.
 - Canonical, robots e sitemap sono allineati all'URL GitHub Pages. Se viene collegato un dominio custom, aggiornare URL assoluti in HTML, `robots.txt` e `sitemap.xml`.
 - Le immagini del vecchio sito non selezionate sono escluse dal repository tramite `.gitignore`.
@@ -89,7 +112,7 @@ GitHub Pages ricostruira automaticamente il sito dopo il push.
 
 ## Ultimo stato pubblicato
 
-- Ultimo intervento pubblicato: ottimizzazione responsive immagini e cache busting dedicato.
+- Ultimo intervento pubblicato: ottimizzazione responsive immagini, cache busting dedicato e GitHub Action per promemoria Instagram.
 - Cache busting attivo: `v=20260421-img-srcset`.
 - Immagini: base WebP ridotte a circa 4.7 MB totali e varianti responsive `720w`/`1100w`/`1400w` collegate agli HTML.
 - Mobile: le sezioni con tre immagini/card sono verticali, senza scorrimento laterale.
