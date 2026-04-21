@@ -26,17 +26,24 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - `assets/fonts/`: font locali in stile Casa Angelina.
 - `assets/img/logo.png`: logo usato nel menu e nel footer.
 - `assets/img/sito-pubblicato/Immagini def/`: immagini selezionate usate nelle pagine.
+- `assets/img/optimized/`: versioni WebP leggere delle immagini effettivamente caricate dal sito.
+- `assets/img/seo/`: immagini Open Graph 1200x630 per anteprime social e SEO.
 - `assets/img/instagram/`: anteprime statiche degli ultimi post Instagram.
-- `assets/video/`: video hero ottimizzati e poster homepage.
+- `assets/video/`: sorgenti video hero, versioni web leggere e poster homepage.
 
 ## Funzionalita implementate
 
 - Header fisso con menu laterale arrotondato.
 - Footer con logo, contatti, link navigazione e pulsante "prenota online" in tutte le pagine.
 - Homepage con video hero, testi ad alto contrasto e CTA verso prenotazione.
+- Video hero caricato in modo differito dopo il primo caricamento della pagina.
+- Immagini delle pagine collegate a versioni WebP leggere con lazy loading dove possibile.
 - Slider immagini in stile Casa Angelina.
 - Effetto parallax leggero sulle immagini.
+- Parallax disattivato su mobile stretto per mantenere lo scroll fluido.
 - Effetto di comparsa/scomparsa delle foto durante lo scroll.
+- Rifiniture mobile: barra azioni rapida con icone, gallerie a scorrimento e micro-interazioni menu.
+- Metadata SEO completi, canonical, social preview e dati strutturati con enfasi su gruppi e intera location.
 - Booking engine Amenitiz incorporato in `prenotazione.html`.
 - Fallback link per aprire Amenitiz in nuova scheda.
 - Form contatti che apre WhatsApp con dati del modulo gia compilati.
@@ -71,12 +78,16 @@ GitHub Pages ricostruira automaticamente il sito dopo il push.
 
 - Non eliminare `prenotazione.html`: e la pagina usata dai pulsanti "prenota online".
 - `prenota.html` e mantenuta come alias/copia di sicurezza.
+- `prenota.html` ha canonical verso `prenotazione.html` ed e impostata `noindex` per evitare duplicati SEO.
+- Canonical, robots e sitemap sono allineati all'URL GitHub Pages. Se viene collegato un dominio custom, aggiornare URL assoluti in HTML, `robots.txt` e `sitemap.xml`.
 - Le immagini del vecchio sito non selezionate sono escluse dal repository tramite `.gitignore`.
-- I video `assets/video/italyke-sponsor-hero.mp4` e `assets/video/italyke-sponsor-mobile.mp4` superano i 50 MB consigliati da GitHub, ma sono sotto il limite massimo e sono stati caricati correttamente.
+- I video originali `assets/video/italyke-sponsor-hero.mp4` e `assets/video/italyke-sponsor-mobile.mp4` restano come sorgenti; il sito carica le versioni web `*-web.mp4`.
 - Per cambiare l'URL Amenitiz, aggiornare iframe e link fallback in `prenotazione.html` e, se necessario, anche in `prenota.html`.
 
 ## Verifiche recenti
 
 - `node --check assets/js/main.js`
+- JSON-LD parsato correttamente in tutte le pagine HTML
+- controllo riferimenti locali HTML, inclusi video `data-src`
 - controllo locale delle pagine principali con codice HTTP `200`
 - GitHub Pages verificato con stato `built`

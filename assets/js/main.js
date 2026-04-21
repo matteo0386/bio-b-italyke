@@ -6,6 +6,7 @@ const menuToggle = document.querySelector("[data-menu-toggle]");
 const menu = document.querySelector("[data-site-menu]");
 const menuLinks = document.querySelectorAll("[data-site-menu] a");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const isSmallViewport = window.matchMedia("(max-width: 760px)");
 
 const setHeaderState = () => {
   if (!header) return;
@@ -154,6 +155,52 @@ const initSlider = (slider) => {
 
 document.querySelectorAll("[data-slider]").forEach(initSlider);
 
+const heroVideos = Array.from(document.querySelectorAll("[data-hero-video]"));
+
+const loadHeroVideos = () => {
+  if (prefersReducedMotion.matches) return;
+
+  heroVideos.forEach((video) => {
+    if (video.dataset.loaded === "true") return;
+
+    video.querySelectorAll("source[data-src]").forEach((source) => {
+      source.src = source.dataset.src;
+      source.removeAttribute("data-src");
+    });
+
+    video.dataset.loaded = "true";
+    video.load();
+
+    const playVideo = () => {
+      video.play().catch(() => {});
+    };
+
+    video.addEventListener("loadeddata", () => video.classList.add("is-loaded"), { once: true });
+
+    if (video.readyState >= 2) {
+      playVideo();
+    } else {
+      video.addEventListener("canplay", playVideo, { once: true });
+    }
+  });
+};
+
+if (heroVideos.length) {
+  const scheduleHeroVideoLoad = () => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadHeroVideos, { timeout: 1600 });
+    } else {
+      window.setTimeout(loadHeroVideos, 650);
+    }
+  };
+
+  if (document.readyState === "complete") {
+    scheduleHeroVideoLoad();
+  } else {
+    window.addEventListener("load", scheduleHeroVideoLoad, { once: true });
+  }
+}
+
 document
   .querySelectorAll(".page-hero__image, .media-slide img, .editorial__media img, .strip-image img, .cta img, .room-suite__media img")
   .forEach((element) => {
@@ -193,7 +240,7 @@ const requestParallax = () => {
   window.requestAnimationFrame(updateParallax);
 };
 
-if (parallaxElements.length && !prefersReducedMotion.matches) {
+if (parallaxElements.length && !prefersReducedMotion.matches && !isSmallViewport.matches) {
   updateParallax();
   window.addEventListener("scroll", requestParallax, { passive: true });
   window.addEventListener("resize", requestParallax);
