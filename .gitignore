@@ -1,0 +1,12 @@
+.DS_Store
+**/.DS_Store
+
+# Sorgenti locali non usati dal sito pubblicato
+*.mov
+assets/img/*.jpg
+
+# Archivio immagini scaricate dal vecchio sito: il sito usa solo la selezione in "Immagini def"
+assets/img/sito-pubblicato/*
+!assets/img/sito-pubblicato/Immagini def/
+!assets/img/sito-pubblicato/Immagini def/**
+**/.DS_Store
