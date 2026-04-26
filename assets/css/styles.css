@@ -10,6 +10,14 @@
   font-display: swap;
   font-family: "Geometria";
   font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/geometria-medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Geometria";
+  font-style: normal;
   font-weight: 600;
   src: url("../fonts/geometria-medium.woff2") format("woff2");
 }
@@ -69,7 +77,7 @@ body {
   font-family: "Geometria", "Avenir Next", Arial, sans-serif;
   font-size: 16px;
   font-weight: 300;
-  line-height: 1.7;
+  line-height: 1.64;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -99,8 +107,10 @@ textarea:focus-visible {
 }
 
 p {
-  font-family: "LM Roman", Georgia, "Times New Roman", serif;
+  font-family: "Geometria", "Avenir Next", Arial, sans-serif;
   margin: 0 0 1rem;
+  font-weight: 500;
+  line-height: 1.62;
 }
 
 h1,
@@ -111,7 +121,7 @@ h4 {
   color: var(--ink);
   font-family: "LM Roman Dunhill", "LM Roman", Georgia, "Times New Roman", serif;
   font-weight: 400;
-  line-height: 1.04;
+  line-height: 1.01;
 }
 
 h1 {
@@ -254,12 +264,16 @@ select {
   font-size: 0.82rem;
   font-weight: 600;
   text-transform: lowercase;
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .header-link:hover,
 .header-pill:hover {
   opacity: 0.78;
+}
+
+.header-link--subtle {
+  opacity: 0.92;
 }
 
 .site-header:not(.is-solid) .header-link {
@@ -292,6 +306,26 @@ select {
   color: var(--ink);
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(14px);
+}
+
+.header-pill--booking {
+  padding: 0 22px;
+  border-color: transparent;
+  background: var(--ink);
+  color: var(--white);
+  box-shadow: 0 16px 34px rgba(48, 44, 40, 0.2);
+}
+
+.site-header:not(.is-solid) .header-pill--booking {
+  background: rgba(255, 255, 255, 0.98);
+  color: var(--ink);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.24);
+}
+
+.site-header.is-solid .header-pill--booking {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
 }
 
 .site-menu {
@@ -431,11 +465,16 @@ select {
 }
 
 .hero__video {
-  transition: filter 700ms ease;
+  transition: filter 700ms ease, opacity 420ms ease;
 }
 
 .hero__video:not(.is-loaded) {
   filter: saturate(0.9) contrast(0.96);
+  opacity: 0.72;
+}
+
+.hero__video.is-loaded {
+  opacity: 1;
 }
 
 .hero-video,
@@ -506,7 +545,8 @@ select {
   max-width: 440px;
   color: rgba(255, 255, 255, 0.93);
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 1.58;
 }
 
 .hero__title,
@@ -627,9 +667,9 @@ select {
   margin-top: 34px;
   margin-left: auto;
   color: var(--earth);
-  font-family: "LM Roman", Georgia, "Times New Roman", serif;
-  font-size: 1.4rem;
-  line-height: 1.55;
+  font-size: 1.28rem;
+  font-weight: 500;
+  line-height: 1.58;
 }
 
 .section.group-highlight {
@@ -789,6 +829,13 @@ select {
   border-radius: 999px;
 }
 
+.button--accent {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+  box-shadow: 0 18px 36px rgba(48, 44, 40, 0.14);
+}
+
 .button::after,
 .text-button::after {
   content: "";
@@ -816,6 +863,12 @@ select {
 
   .button:hover {
     background: var(--ink);
+    color: var(--white);
+  }
+
+  .button--accent:hover {
+    background: var(--sage-dark);
+    border-color: var(--sage-dark);
     color: var(--white);
   }
 
@@ -1348,6 +1401,7 @@ select {
 .cta p {
   color: rgba(255, 255, 255, 0.93);
   font-size: 1.08rem;
+  line-height: 1.6;
 }
 
 .page-hero {
@@ -1385,6 +1439,7 @@ select {
   max-width: 650px;
   color: rgba(255, 255, 255, 0.94);
   font-size: 1.08rem;
+  line-height: 1.6;
 }
 
 .page-hero .eyebrow {
@@ -1565,6 +1620,12 @@ textarea:focus {
   backdrop-filter: none;
 }
 
+.booking-page:not(.nav-open) .header-pill--booking {
+  border-color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
 .booking-section {
   overflow-x: hidden;
   background: linear-gradient(180deg, var(--milk), var(--white));
@@ -1592,6 +1653,7 @@ textarea:focus {
   margin: 18px 0 0;
   color: var(--earth);
   font-size: 1.08rem;
+  line-height: 1.6;
 }
 
 .booking-engine__frame {
@@ -1678,7 +1740,10 @@ textarea:focus {
 
 .footer-booking {
   margin-top: 24px;
-  border-color: rgba(255, 255, 255, 0.72);
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--ink);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.16);
 }
 
 .site-footer h2 {
@@ -1975,6 +2040,10 @@ textarea:focus {
     display: none;
   }
 
+  .header-link--subtle {
+    display: none;
+  }
+
   .menu-toggle {
     width: 44px;
     height: 44px;
@@ -1989,7 +2058,7 @@ textarea:focus {
   .hero__lead {
     max-width: 100%;
     font-size: 1rem;
-    line-height: 1.55;
+    line-height: 1.58;
   }
 
   .scroll-cue {

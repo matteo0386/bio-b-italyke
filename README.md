@@ -37,13 +37,14 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - Header fisso con menu laterale arrotondato.
 - Footer con logo, contatti, link navigazione e pulsante "prenota online" in tutte le pagine.
 - Homepage con video hero, testi ad alto contrasto e CTA verso prenotazione.
-- Video hero caricato in modo differito dopo il primo caricamento della pagina.
+- Video hero desktop/mobile ottimizzato per il web, con poster piu leggero, playback rallentato e caricamento piu affidabile su mobile.
 - Immagini delle pagine collegate a versioni WebP responsive con `srcset`, `sizes` e lazy loading dove possibile.
 - Slider immagini in stile Casa Angelina.
 - Effetto parallax leggero sulle immagini.
 - Parallax disattivato su mobile stretto per mantenere lo scroll fluido.
 - Effetto di comparsa/scomparsa delle foto durante lo scroll.
 - Rifiniture mobile: dock azioni rapido con pulsanti iconici, gallerie verticali senza scroll orizzontale e micro-interazioni menu.
+- Header desktop con CTA "prenota online" piu visibile.
 - Pagina prenotazione con header scuro dedicato: menu, email e telefono restano bianchi sopra il booking engine Amenitiz.
 - Metadata SEO completi, canonical, social preview e dati strutturati con enfasi su gruppi e intera location.
 - Booking engine Amenitiz incorporato in `prenotazione.html`.
@@ -105,6 +106,7 @@ Dopo la pubblicazione, chiudere la issue del promemoria.
 - Aggiornare sempre questo `README.md` quando cambia struttura, asset, UX, SEO, pubblicazione o una regola operativa del progetto.
 - Le anteprime Instagram sono aggiornate manualmente; non usare widget Instagram in homepage se appesantiscono il caricamento.
 - Dopo modifiche a CSS, JavaScript, video o immagini hero, aggiornare la query anti-cache nei riferimenti HTML, per esempio `?v=YYYYMMDD-descrizione`.
+- Il video hero della homepage usa sorgenti separate desktop/mobile caricate via `data-src-desktop` e `data-src-mobile` in `index.html`; mantenere `preload="metadata"` e `movflags +faststart` nelle versioni web per non peggiorare l'avvio su mobile.
 - Canonical, robots e sitemap sono allineati all'URL GitHub Pages. Se viene collegato un dominio custom, aggiornare URL assoluti in HTML, `robots.txt` e `sitemap.xml`.
 - Le immagini del vecchio sito non selezionate sono escluse dal repository tramite `.gitignore`.
 - I video originali `assets/video/italyke-sponsor-hero.mp4` e `assets/video/italyke-sponsor-mobile.mp4` restano come sorgenti; il sito carica le versioni web `*-web.mp4`.
@@ -112,9 +114,10 @@ Dopo la pubblicazione, chiudere la issue del promemoria.
 
 ## Ultimo stato pubblicato
 
-- Ultimo intervento pubblicato: ottimizzazione responsive immagini, cache busting dedicato e GitHub Action per promemoria Instagram.
-- Cache busting attivo: `v=20260421-img-srcset`.
+- Ultimo intervento pubblicato: video hero rallentato e alleggerito, CTA prenotazione desktop piu visibile e tipografia piu compatta.
+- Cache busting attivo: `v=20260426-hero-type`.
 - Immagini: base WebP ridotte a circa 4.7 MB totali e varianti responsive `720w`/`1100w`/`1400w` collegate agli HTML.
+- Video homepage: poster ridotto a circa 122 KB, video desktop a circa 3.7 MB e video mobile a circa 3.0 MB, entrambi con `faststart`.
 - Mobile: le sezioni con tre immagini/card sono verticali, senza scorrimento laterale.
 - Booking Amenitiz: header scuro dedicato con controlli bianchi.
 
