@@ -263,6 +263,7 @@ select {
 .header-pill {
   font-size: 0.82rem;
   font-weight: 600;
+  white-space: nowrap;
   text-transform: lowercase;
   transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
@@ -2036,6 +2037,11 @@ textarea:focus {
     grid-template-columns: 1fr 1fr;
   }
 
+  .header-left,
+  .header-right {
+    gap: 10px;
+  }
+
   .header-pill {
     display: none;
   }
@@ -2047,6 +2053,39 @@ textarea:focus {
   .menu-toggle {
     width: 44px;
     height: 44px;
+  }
+
+  .site-header .header-right .header-link[href^="tel:"] {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 84px;
+    padding: 0 12px;
+    border-radius: 999px;
+    font-size: 0;
+    white-space: nowrap;
+  }
+
+  .site-header .header-right .header-link[href^="tel:"]::before {
+    content: "chiama";
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .site-header.is-solid .header-right .header-link[href^="tel:"] {
+    border: 1px solid rgba(110, 98, 89, 0.2);
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--earth);
+    box-shadow: 0 8px 22px rgba(48, 44, 40, 0.08);
+  }
+
+  .booking-page .site-header .header-right .header-link[href^="tel:"] {
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--white);
+    box-shadow: none;
   }
 
   .hero__content {

@@ -37,13 +37,13 @@ Sito statico per Bio&B Italyke, country house biosostenibile a Viterbo, sviluppa
 - Header fisso con menu laterale arrotondato.
 - Footer con logo, contatti, link navigazione e pulsante "prenota online" in tutte le pagine.
 - Homepage con video hero, testi ad alto contrasto e CTA verso prenotazione.
-- Video hero desktop/mobile ottimizzato per il web, con poster piu leggero, playback rallentato e caricamento piu affidabile su mobile.
+- Video hero desktop/mobile ottimizzato per il web, con poster piu leggero, playback rallentato, sorgenti native nel markup e caricamento piu affidabile su mobile e iOS.
 - Immagini delle pagine collegate a versioni WebP responsive con `srcset`, `sizes` e lazy loading dove possibile.
 - Slider immagini in stile Casa Angelina.
 - Effetto parallax leggero sulle immagini.
 - Parallax disattivato su mobile stretto per mantenere lo scroll fluido.
 - Effetto di comparsa/scomparsa delle foto durante lo scroll.
-- Rifiniture mobile: dock azioni rapido con pulsanti iconici, gallerie verticali senza scroll orizzontale e micro-interazioni menu.
+- Rifiniture mobile: dock azioni rapido con pulsanti iconici, gallerie verticali senza scroll orizzontale, micro-interazioni menu e pulsante telefono compatto "chiama".
 - Header desktop con CTA "prenota online" piu visibile.
 - Pagina prenotazione con header scuro dedicato: menu, email e telefono restano bianchi sopra il booking engine Amenitiz.
 - Metadata SEO completi, canonical, social preview e dati strutturati con enfasi su gruppi e intera location.
@@ -106,7 +106,7 @@ Dopo la pubblicazione, chiudere la issue del promemoria.
 - Aggiornare sempre questo `README.md` quando cambia struttura, asset, UX, SEO, pubblicazione o una regola operativa del progetto.
 - Le anteprime Instagram sono aggiornate manualmente; non usare widget Instagram in homepage se appesantiscono il caricamento.
 - Dopo modifiche a CSS, JavaScript, video o immagini hero, aggiornare la query anti-cache nei riferimenti HTML, per esempio `?v=YYYYMMDD-descrizione`.
-- Il video hero della homepage usa sorgenti separate desktop/mobile caricate via `data-src-desktop` e `data-src-mobile` in `index.html`; mantenere `preload="metadata"` e `movflags +faststart` nelle versioni web per non peggiorare l'avvio su mobile.
+- Il video hero della homepage usa due `<source>` native in `index.html`; mantenere `movflags +faststart`, profilo H.264 compatibile e tag colore `bt709` nelle versioni web per non peggiorare l'avvio su mobile e iOS.
 - Canonical, robots e sitemap sono allineati all'URL GitHub Pages. Se viene collegato un dominio custom, aggiornare URL assoluti in HTML, `robots.txt` e `sitemap.xml`.
 - Le immagini del vecchio sito non selezionate sono escluse dal repository tramite `.gitignore`.
 - I video originali `assets/video/italyke-sponsor-hero.mp4` e `assets/video/italyke-sponsor-mobile.mp4` restano come sorgenti; il sito carica le versioni web `*-web.mp4`.
@@ -114,10 +114,10 @@ Dopo la pubblicazione, chiudere la issue del promemoria.
 
 ## Ultimo stato pubblicato
 
-- Ultimo intervento pubblicato: video hero rallentato e alleggerito, CTA prenotazione desktop piu visibile e tipografia piu compatta.
-- Cache busting attivo: `v=20260426-hero-type`.
+- Ultimo intervento pubblicato: fix compatibilita video mobile/iOS, pulsante telefono mobile compatto, CTA prenotazione desktop piu visibile e tipografia piu compatta.
+- Cache busting attivo: `v=20260426-mobile-video-compat`.
 - Immagini: base WebP ridotte a circa 4.7 MB totali e varianti responsive `720w`/`1100w`/`1400w` collegate agli HTML.
-- Video homepage: poster ridotto a circa 122 KB, video desktop a circa 3.7 MB e video mobile a circa 3.0 MB, entrambi con `faststart`.
+- Video homepage: poster ridotto a circa 122 KB, video desktop a circa 3.9 MB e video mobile a circa 2.9 MB, entrambi con `faststart`, profilo Main e spazio colore `bt709`.
 - Mobile: le sezioni con tre immagini/card sono verticali, senza scorrimento laterale.
 - Booking Amenitiz: header scuro dedicato con controlli bianchi.
 
@@ -125,6 +125,6 @@ Dopo la pubblicazione, chiudere la issue del promemoria.
 
 - `node --check assets/js/main.js`
 - JSON-LD parsato correttamente in tutte le pagine HTML
-- controllo riferimenti locali HTML, inclusi video `data-src`
+- controllo riferimenti locali HTML, inclusi `poster`, `source` video e `srcset`
 - controllo locale delle pagine principali con codice HTTP `200`
 - GitHub Pages verificato con stato `built`

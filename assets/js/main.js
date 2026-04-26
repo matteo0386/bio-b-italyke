@@ -165,14 +165,16 @@ const loadHeroVideos = () => {
   }
 
   heroVideos.forEach((video) => {
-    const mobileSource = video.dataset.srcMobile;
-    const desktopSource = video.dataset.srcDesktop;
-    const selectedSource = isSmallViewport.matches ? mobileSource || desktopSource : desktopSource || mobileSource;
-
     const tuneVideo = () => {
+      video.setAttribute("muted", "");
+      video.setAttribute("autoplay", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
       video.muted = true;
       video.defaultMuted = true;
+      video.autoplay = true;
       video.playsInline = true;
+      video.preload = isSmallViewport.matches ? "auto" : "metadata";
       video.defaultPlaybackRate = HERO_VIDEO_PLAYBACK_RATE;
       video.playbackRate = HERO_VIDEO_PLAYBACK_RATE;
     };
@@ -189,14 +191,14 @@ const loadHeroVideos = () => {
       playVideo();
     };
 
-    if (video.dataset.loaded !== "true" && selectedSource) {
-      video.src = selectedSource;
+    if (video.dataset.loaded !== "true") {
       video.dataset.loaded = "true";
       video.load();
     }
 
     tuneVideo();
 
+    video.addEventListener("loadedmetadata", () => video.classList.add("is-loaded"), { once: true });
     video.addEventListener("loadeddata", markReady, { once: true });
     video.addEventListener("canplay", markReady, { once: true });
     video.addEventListener(
@@ -216,6 +218,14 @@ const loadHeroVideos = () => {
     if (video.readyState >= 2) {
       markReady();
     }
+
+    window.setTimeout(() => {
+      if (video.dataset.ready === "true" || video.dataset.retry === "true") return;
+      video.dataset.retry = "true";
+      tuneVideo();
+      video.load();
+      playVideo();
+    }, isSmallViewport.matches ? 1400 : 2200);
   });
 };
 
@@ -239,6 +249,18 @@ if (heroVideos.length) {
       }
     });
   });
+
+  const resumeHeroVideos = () => {
+    heroVideos.forEach((video) => {
+      if (video.paused) {
+        video.playbackRate = HERO_VIDEO_PLAYBACK_RATE;
+        video.play().catch(() => {});
+      }
+    });
+  };
+
+  window.addEventListener("pointerdown", resumeHeroVideos, { once: true, passive: true });
+  window.addEventListener("touchstart", resumeHeroVideos, { once: true, passive: true });
 }
 
 document
